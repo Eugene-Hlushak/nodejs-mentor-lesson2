@@ -25,8 +25,9 @@ const deleteContact = async (req, res) => {
   res.json({ message: "Contact successfully deleted" });
 };
 
-const patchContact = async (req, res) => {
+const putContact = async (req, res) => {
   const result = await editContact(req.params.contactId, req.body);
   res.status(200).json(result);
 };
-module.exports = { contactList, newContact, deleteContact, patchContact };
+
+module.exports = { contactList, newContact, deleteContact, putContact };

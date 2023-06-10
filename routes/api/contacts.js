@@ -4,11 +4,10 @@ const {
   contactList,
   newContact,
   deleteContact,
-  patchContact,
+  putContact,
 } = require("../../controlers/contacts/contacts-controlers");
 const {
   addContactValidation,
-  editContactValidation,
 } = require("../../middlewares/validation/contactValidation");
 const isValidId = require("../../middlewares/validation/isValidId");
 
@@ -20,6 +19,6 @@ router.post("/", addContactValidation, newContact);
 
 router.delete("/:contactId", isValidId, deleteContact);
 
-router.patch("/:contactId", isValidId, editContactValidation, patchContact);
+router.put("/:contactId", isValidId, addContactValidation, putContact);
 
 module.exports = router;

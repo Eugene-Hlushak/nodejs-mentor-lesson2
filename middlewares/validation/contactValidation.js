@@ -5,11 +5,6 @@ const addContactSchema = Joi.object({
   number: Joi.string().min(7).max(20).trim().required(),
 });
 
-const editContactSchema = Joi.object({
-  name: Joi.string().min(1).max(20).trim(),
-  number: Joi.string().min(7).max(20).trim(),
-});
-
 const addContactValidation = (req, res, next) => {
   if (Object.keys(req.body).length === 0) {
     return res.status(400).json({
@@ -32,17 +27,4 @@ const addContactValidation = (req, res, next) => {
   next();
 };
 
-const editContactValidation = (req, res, next) => {
-  if (Object.keys(req.body).length === 0) {
-    return res.status(400).json({
-      message: "Please, fill in the fields you want to change",
-    });
-  }
-  const { error } = editContactSchema.validate(req.body);
-  if (error) {
-    return res.status(400).json({ message: error.message });
-  }
-  next();
-};
-
-module.exports = { addContactValidation, editContactValidation };
+module.exports = { addContactValidation };
