@@ -22,10 +22,11 @@ const userRegister = async (req, res) => {
     });
 
     await newUser.setPassword(password);
-    newUser.save();
     const payload = { id: newUser._id };
-
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+    newUser.setToken(token);
+
+    newUser.save();
 
     res.status(201).json({ user: { name, email, avatarURL }, token });
   } catch (error) {
@@ -36,6 +37,7 @@ const userRegister = async (req, res) => {
 
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -50,8 +52,7 @@ const userLogin = async (req, res) => {
     const payload = { id: user._id };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
 
-    const userToken = await User.findByIdAndUpdate(user._id, { token });
-    console.log(userToken);
+    await User.findByIdAndUpdate(user._id, { token });
     res.json({
       user: { name: user.name, email: user.email, avatarURL: user.avatarURL },
       token,

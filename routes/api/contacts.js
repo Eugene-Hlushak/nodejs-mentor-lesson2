@@ -1,5 +1,4 @@
 const express = require("express");
-
 const {
   contactList,
   newContact,
@@ -10,12 +9,13 @@ const {
   addContactValidation,
 } = require("../../middlewares/validation/contactValidation");
 const isValidId = require("../../middlewares/validation/isValidId");
+const authenticate = require("../../middlewares/authenticate");
 
 const router = express.Router();
 
-router.get("/", contactList);
+router.get("/", authenticate, contactList);
 
-router.post("/", addContactValidation, newContact);
+router.post("/", addContactValidation, authenticate, newContact);
 
 router.delete("/:contactId", isValidId, deleteContact);
 
