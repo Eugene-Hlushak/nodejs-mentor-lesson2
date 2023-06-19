@@ -13,9 +13,8 @@ const contactList = async (req, res) => {
 };
 
 const newContact = async (req, res) => {
-  // console.dir(req.user);
   const { _id: owner } = req.user;
-  const contact = await addContact({...req.body, owner});
+  const contact = await addContact({ ...req.body, owner });
 
   res.status(201).json(contact);
 };
@@ -26,7 +25,7 @@ const deleteContact = async (req, res) => {
   if (!result) {
     res.status(404).json({ message: "Not found" });
   }
-  res.json({ message: "Contact successfully deleted" });
+  res.json({ result, message: "Contact successfully deleted" });
 };
 
 const putContact = async (req, res) => {

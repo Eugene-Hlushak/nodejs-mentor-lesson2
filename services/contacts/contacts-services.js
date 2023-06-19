@@ -16,7 +16,8 @@ const removeContact = async (id) => {
 };
 
 const editContact = async (id, data) => {
-  const result = await Contact.findByIdAndUpdate(id, data,{new:true});
+  const result = await Contact.findByIdAndUpdate(id, data, { new: true });
   return result;
 };
+
 module.exports = { getContacts, addContact, removeContact, editContact };
